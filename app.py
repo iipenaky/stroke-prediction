@@ -25,21 +25,37 @@ def preprocess_image(image):
 
 # Streamlit interface
 st.set_page_config(page_title="Stroke Prediction", page_icon="🧠", layout="centered")
+# Background styling using Base64-encoded image
 image_base64 = get_base64_image("brain.jpeg")
-# Background styling
+
 st.markdown(
-    """
+    f"""
     <style>
-    body {
-        background-image: url('brain.jpeg);
+    body {{
+        background-image: url('data:image/jpeg;base64,{image_base64}');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-    }
+    }}
+    h1 {{
+        text-align: center;
+        color: green;
+    }}
+    h2 {{
+        text-align: center;
+        color: blue;
+    }}
+    .stButton button {{
+        background-color: #28a745;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+    }}
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 st.title('🧠 Stroke Prediction from Brain Image')
 st.subheader('Upload an image of a brain scan to predict if it shows a stroke or not.')
