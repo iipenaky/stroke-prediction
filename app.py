@@ -82,30 +82,30 @@ if uploaded_file is not None:
         else:
             st.markdown('<h2 style="color: blue;">Prediction: Normal</h2>', unsafe_allow_html=True)
 
-# Styling for the page
-st.markdown("""
-    <style>
-        .css-ffhzg2 {  /* Title styling */
-            text-align: center;
-            color: green;
-        }
-        .css-1b9g2ys {  /* Subheader styling */
-            text-align: center;
-            color: blue;
-        }
-        .css-16mhj2r {  /* Button styling */
-            background-color: green;
-            color: white;
-        }
-        .stButton button {  /* Styling the button to make it more prominent */
-            background-color: #28a745;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .stFileUploader {  /* Custom file uploader style */
-            border: 2px solid #28a745;
-            padding: 10px;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# # Styling for the page
+# st.markdown("""
+#     <style>
+#         .css-ffhzg2 {  /* Title styling */
+#             text-align: center;
+#             color: green;
+#         }
+#         .css-1b9g2ys {  /* Subheader styling */
+#             text-align: center;
+#             color: blue;
+#         }
+#         .css-16mhj2r {  /* Button styling */
+#             background-color: green;
+#             color: white;
+#         }
+#         .stButton button {  /* Styling the button to make it more prominent */
+#             background-color: #28a745;
+#             color: white;
+#             font-size: 16px;
+#             font-weight: bold;
+#         }
+#         .stFileUploader {  /* Custom file uploader style */
+#             border: 2px solid #28a745;
+#             padding: 10px;
+#         }
+#     </style>
+# """, unsafe_allow_html=True)
