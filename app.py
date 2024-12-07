@@ -17,16 +17,33 @@ def preprocess_image(image):
 
 # Streamlit interface
 st.set_page_config(page_title="Stroke Prediction", page_icon="🧠", layout="centered")
-image_base64 = get_base64_image("brain.jpeg")
-# Background styling
+
+# Custom CSS for green and blue aesthetics
 st.markdown(
     """
     <style>
     body {
-        background-image: url('brain.jpeg);
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
+        background-color: white;  /* White background */
+    }
+    h1, h2 {
+        text-align: center;
+    }
+    h1 {
+        color: green;  /* Green for titles */
+    }
+    h2 {
+        color: blue;  /* Blue for subtitles */
+    }
+    .stButton button {
+        background-color: #28a745;  /* Green button */
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+    }
+    .stFileUploader {
+        border: 2px solid #28a745;
+        padding: 10px;
     }
     </style>
     """,
