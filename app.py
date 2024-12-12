@@ -8,12 +8,26 @@ from PIL import Image
 model = load_model('stroke_prediction_model.keras')
 
 # Function to preprocess the image
-def preprocess_image(image):
-    image = image.convert('RGB')  # Convert to RGB
-    image = image.resize((64, 64))  # Resize to model input size
-    image_array = np.array(image) / 255.0  # Normalize
-    image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
-    return image_array
+def preprocess_image(image_path):
+    """
+    Loads an image from the specified path, resizes it to the required dimensions (256x256x3),
+    and normalizes pixel values.
+    """
+    # Load the image using OpenCV
+    image = cv2.imread(image_path)
+    if image is None:
+        raise ValueError(f"Image not found at path: {image_path}")
+    
+    # Resize the image to (256, 256)
+    resized_image = cv2.resize(image, (256, 256))
+    
+    # Normalize the pixel values to [0, 1]
+    normalized_image = resized_image / 255.0
+    
+    # Add a batch dimension (1, 256, 256, 3)
+    input_array = np.expand_dims(normalized_image, axis=0)
+    
+    return input_array
 
 # Streamlit interface
 st.set_page_config(page_title="Stroke Prediction", page_icon="🧠", layout="centered")
