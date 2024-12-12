@@ -3,6 +3,7 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image
+import cv2
 
 # Load the trained model
 model = load_model('stroke_prediction_model.keras')
