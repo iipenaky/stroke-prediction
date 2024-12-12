@@ -3,27 +3,25 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image
+import io
 
 # Load the trained model
 model = load_model('stroke_prediction_model.keras')
 
 # Function to preprocess the image
-def preprocess_image(image_path):
+def preprocess_image(image):
     """
-    Preprocesses an image for prediction without using OpenCV.
-    Loads, resizes to (256x256), and normalizes pixel values.
+    Preprocesses an image for prediction.
+    Takes a PIL Image object, resizes it to (256x256), and normalizes pixel values.
     """
-    # Load the image from the file path
-    image = tf.io.read_file(image_path)
-    
-    # Decode the image (automatically handles different formats)
-    image = tf.image.decode_image(image, channels=3)
+    # Convert the PIL Image to a NumPy array
+    image = np.array(image)
     
     # Resize the image to (256, 256)
-    resized_image = tf.image.resize(image, [256, 256])
+    image = tf.image.resize(image, [256, 256])
     
     # Normalize the pixel values to [0, 1]
-    normalized_image = resized_image / 255.0
+    normalized_image = image / 255.0
     
     # Add a batch dimension (1, 256, 256, 3)
     input_array = tf.expand_dims(normalized_image, axis=0)
@@ -73,8 +71,10 @@ st.subheader('Upload an image of a brain scan to predict if it shows a stroke or
 uploaded_file = st.file_uploader("Choose an image...", type=['png', 'jpg', 'jpeg'])
 
 if uploaded_file is not None:
-    # Display the uploaded image
+    # Load the image
     image = Image.open(uploaded_file)
+    
+    # Display the uploaded image
     st.image(image, caption='Uploaded Image', use_column_width=True)
 
     # Preprocess the image
