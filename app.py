@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 # Load the trained model
-model = load_model('stroke_prediction_model.h5')
+model = load_model('stroke_prediction_model.keras')
 
 # Function to preprocess the image
 def preprocess_image(image):
