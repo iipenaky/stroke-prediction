@@ -8,7 +8,6 @@ import io
 # Load the trained model
 model = load_model('stroke_prediction_model.keras')
 
-# Function to preprocess the image
 def preprocess_image(image):
     """
     Preprocesses an image for prediction.
@@ -17,13 +16,13 @@ def preprocess_image(image):
     # Convert the PIL Image to a NumPy array
     image = np.array(image)
     
-    # Resize the image to (256, 256)
+    # Resize the image to (256, 256) - adjust if your model requires a different size
     image = tf.image.resize(image, [256, 256])
     
     # Normalize the pixel values to [0, 1]
     normalized_image = image / 255.0
     
-    # Add a batch dimension (1, 256, 256, 3)
+    # Add a batch dimension (1, 256, 256, 3) - ensure this matches model input
     input_array = tf.expand_dims(normalized_image, axis=0)
     
     return input_array
@@ -79,6 +78,7 @@ if uploaded_file is not None:
 
     # Preprocess the image
     image_array = preprocess_image(image)
+    print(f"Preprocessed image shape: {image_array.shape}")
 
     # Prediction button
     if st.button("Predict Stroke or Normal"):
