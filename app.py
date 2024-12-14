@@ -3,17 +3,29 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image
+import io
 
 # Load the trained model
 model = load_model('stroke_prediction_model.keras')
 
-# Function to preprocess the image
 def preprocess_image(image):
-    image = image.convert('RGB')  # Convert to RGB
-    image = image.resize((64, 64))  # Resize to model input size
-    image_array = np.array(image) / 255.0  # Normalize
-    image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
-    return image_array
+    """
+    Preprocesses an image for prediction.
+    Takes a PIL Image object, resizes it to (256x256), and normalizes pixel values.
+    """
+    # Convert the PIL Image to a NumPy array
+    image = np.array(image)
+    
+    # Resize the image to (256, 256) - adjust if your model requires a different size
+    image = tf.image.resize(image, [256, 256])
+    
+    # Normalize the pixel values to [0, 1]
+    normalized_image = image / 255.0
+    
+    # Add a batch dimension (1, 256, 256, 3) - ensure this matches model input
+    input_array = tf.expand_dims(normalized_image, axis=0)
+    
+    return input_array
 
 # Streamlit interface
 st.set_page_config(page_title="Stroke Prediction", page_icon="🧠", layout="centered")
@@ -58,12 +70,15 @@ st.subheader('Upload an image of a brain scan to predict if it shows a stroke or
 uploaded_file = st.file_uploader("Choose an image...", type=['png', 'jpg', 'jpeg'])
 
 if uploaded_file is not None:
-    # Display the uploaded image
+    # Load the image
     image = Image.open(uploaded_file)
+    
+    # Display the uploaded image
     st.image(image, caption='Uploaded Image', use_column_width=True)
 
     # Preprocess the image
     image_array = preprocess_image(image)
+    print(f"Preprocessed image shape: {image_array.shape}")
 
     # Prediction button
     if st.button("Predict Stroke or Normal"):
