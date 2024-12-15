@@ -35,7 +35,10 @@ st.markdown(
     """
     <style>
     body {
-        background-color: white;  /* White background */
+        background-image: url('https://i.postimg.cc/mZPcNxvV/download-2.jpg');
+        background-size: cover;
+        background-position: center;
+        color: white;
     }
     h1, h2 {
         text-align: center;
